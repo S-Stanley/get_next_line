@@ -108,9 +108,11 @@ int	get_next_line(int fd, char **line)
 {
 	int res;
 	
-	res = ft_ft(fd, line);
+	res = 2;
 	while (res == 2)
-		get_next_line(fd, line);
+	{
+		res = ft_ft(fd, line);
+	}
 	return (res);
 }
 

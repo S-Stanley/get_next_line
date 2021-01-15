@@ -17,34 +17,21 @@ char *ft_join(char *s1, char *s2)
 	return (str);
 }
 
-int	ft_ft(int fd, char **line)
+int	ft_ft(int fd, char **line, t_list **lst, char *tmp)
 {
-	static t_list	*lst;
 	int		size;
 	int		i;
 	char		*str;
 	char		*s;
 	char		*rem;
-	t_list		*tmp;
 
 	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	size = read(fd, s, BUFFER_SIZE);
 	s[size] = 0;
-	if (!lst)
-		str = ft_join("", s);
-	else
-		str = ft_join(lst->str, s);
+	str = ft_join(tmp, s);
 	free(s);
 	if (size == 0 && (int)strlen(str) == 0)
 	{
-		while (lst)
-		{
-			tmp = lst->next;
-			free(lst->str);
-			free(lst);
-			lst = tmp;
-
-		}
 		free(str);
 		return (0);
 	}
@@ -54,7 +41,7 @@ int	ft_ft(int fd, char **line)
 		if (str[i] == '\n')
 		{
 			rem = ft_strdup(&str[i + 1]);
-			lst = ft_new(rem, lst);
+			*lst = ft_new(rem, *lst);
 			*line = ft_strndup(str, i);
 			free(str);
 			return (1);
@@ -62,19 +49,30 @@ int	ft_ft(int fd, char **line)
 	}
 	rem = ft_strdup(str);
 	free(str);
-	lst = ft_new(rem, lst);
+	*lst = ft_new(rem, *lst);
 	return (2);
 }
 
 int	get_next_line(int fd, char **line)
 {
-	int res;
-	
+	int				res;
+	static t_list	*lst;
+	t_list			*tmp;
+	char			*str;
+
 	if (!fd)
 		return (-1);
 	res = 2;
 	while (res == 2)
-		res = ft_ft(fd, line);
+	{
+		if (!lst)
+			str = "";
+		else
+			str = lst->str;
+		res = ft_ft(fd, line, &lst, str);
+	}
+	if (res == 0)
+		ft_free_that_list(&lst);
 	return (res);
 }
 

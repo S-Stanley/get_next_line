@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char *ft_strndup(char *str, int max)
+char	*ft_strndup(char *str, int max)
 {
 	int	i;
 	char	*s;
@@ -14,7 +14,7 @@ char *ft_strndup(char *str, int max)
 
 }
 
-char *ft_strdup(char *str)
+char	*ft_strdup(char *str)
 {
 	char	*s;
 	int	i;
@@ -27,7 +27,7 @@ char *ft_strdup(char *str)
 	return (s);
 }
 
-t_list *ft_new(char *s, t_list *lst)
+t_list	*ft_new(char *s, t_list *lst)
 {
 	t_list *tmp;
 
@@ -36,4 +36,17 @@ t_list *ft_new(char *s, t_list *lst)
 	tmp->next = lst;
 	return (tmp);
 
+}
+
+void	ft_free_that_list(t_list **lst)
+{
+	t_list *tmp;
+
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->str);
+		free(*lst);
+		*lst = tmp;
+	}
 }

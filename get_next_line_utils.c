@@ -2,7 +2,7 @@
 
 char	*ft_strndup(char *str, int max)
 {
-	int	i;
+	int		i;
 	char	*s;
 	
 	s = malloc(sizeof(char) * ((int)strlen(str) + 1));
@@ -17,7 +17,7 @@ char	*ft_strndup(char *str, int max)
 char	*ft_strdup(char *str)
 {
 	char	*s;
-	int	i;
+	int		i;
 
 	i = -1;
 	s = malloc(sizeof(char) * ((int)strlen(str) + 1));
@@ -29,7 +29,7 @@ char	*ft_strdup(char *str)
 
 t_list	*ft_new(char *s, t_list *lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = malloc(sizeof(t_list));
 	tmp->str = s;
@@ -40,7 +40,7 @@ t_list	*ft_new(char *s, t_list *lst)
 
 void	ft_free_that_list(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	while (*lst)
 	{

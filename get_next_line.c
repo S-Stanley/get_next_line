@@ -1,9 +1,9 @@
 #include "get_next_line.h"
 
-char *ft_join(char *s1, char *s2)
+char	*ft_join(char *s1, char *s2)
 {
-	int	i;
-	int	x;
+	int		i;
+	int		x;
 	char	*str;
 
 	i = -1;
@@ -17,10 +17,10 @@ char *ft_join(char *s1, char *s2)
 	return (str);
 }
 
-int	ft_ft(int fd, char **line, t_list **lst, char *tmp)
+int		ft_ft(int fd, char **line, t_list **lst, char *tmp)
 {
-	int		size;
-	int		i;
+	int			size;
+	int			i;
 	char		*str;
 	char		*s;
 	char		*rem;
@@ -53,7 +53,7 @@ int	ft_ft(int fd, char **line, t_list **lst, char *tmp)
 	return (2);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	int				res;
 	static t_list	*lst;

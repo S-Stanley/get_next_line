@@ -4,6 +4,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 32
 # endif
@@ -27,3 +30,5 @@ void		ft_free_that_list(t_list **lst);
 t_render	ft_read_file(int fd);
 size_t		ft_strlen(char *str);
 int			ft_free_and_return(char **str, t_list **lst, int mode, char *s);
+
+#endif

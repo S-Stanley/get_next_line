@@ -63,6 +63,7 @@ int	ft_ft(int fd, char **line)
 	char		*str;
 	char		*s;
 	char		*rem;
+	t_list		*tmp;
 
 	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	size = read(fd, s, BUFFER_SIZE);
@@ -71,8 +72,20 @@ int	ft_ft(int fd, char **line)
 		str = ft_join("", s);
 	else
 		str = ft_join(lst->str, s);
+	free(s);
 	if (size == 0 && (int)strlen(str) == 0)
+	{
+		while (lst)
+		{
+			tmp = lst->next;
+			free(lst->str);
+			free(lst);
+			lst = tmp;
+
+		}
+		free(str);
 		return (0);
+	}
 	i = -1;
 	while (str[++i])
 	{
@@ -81,10 +94,12 @@ int	ft_ft(int fd, char **line)
 			rem = ft_strdup(&str[i + 1]);
 			lst = ft_new(rem, lst);
 			*line = ft_strndup(str, i);
+			free(str);
 			return (1);
 		}
 	}
 	rem = ft_strdup(str);
+	free(str);
 	lst = ft_new(rem, lst);
 	return (2);
 }

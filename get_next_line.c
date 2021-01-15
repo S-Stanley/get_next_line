@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char	*ft_join(char *s1, char *s2)
+char		*ft_join(char *s1, char *s2)
 {
 	int		i;
 	int		x;
@@ -8,7 +8,7 @@ char	*ft_join(char *s1, char *s2)
 
 	i = -1;
 	x = -1;
-	str = malloc(sizeof(char) * ( (int)strlen(s1) + (int)strlen(s2) + 1));
+	str = malloc(sizeof(char) * ((int)strlen(s1) + (int)strlen(s2) + 1));
 	while(s1[++i])
 		str[i] = s1[i];
 	while(s2[++x])
@@ -17,20 +17,51 @@ char	*ft_join(char *s1, char *s2)
 	return (str);
 }
 
-int		ft_ft(int fd, char **line, t_list **lst, char *tmp)
+int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 {
-	int			size;
-	int			i;
-	char		*str;
+	char	*rem;
+	
+	if (mode)
+	{
+		(void)s;
+		rem = ft_strndup(*str, -1);
+		*lst = ft_new(rem, *lst);
+		free(*str);
+	}
+	else
+	{
+		(void)str;
+		rem = ft_strndup(s, -1);
+		*lst = ft_new(rem, *lst);
+	}
+	return (2);
+}
+
+t_render	ft_read_file(int fd)
+{
 	char		*s;
-	char		*rem;
+	int			size;
+	t_render	tmp;
 
 	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	size = read(fd, s, BUFFER_SIZE);
 	s[size] = 0;
-	str = ft_join(tmp, s);
-	free(s);
-	if (size == 0 && (int)strlen(str) == 0)
+	tmp.count = size;
+	tmp.render = s;
+	return (tmp);
+}
+
+int			ft_ft(int fd, char **line, t_list **lst, char *tmp)
+{
+	int			i;
+	char		*str;
+	char		*rem;
+	t_render	data;
+
+	data = ft_read_file(fd);
+	str = ft_join(tmp, data.render);
+	free(data.render);
+	if (data.count == 0 && (int)strlen(str) == 0)
 	{
 		free(str);
 		return (0);
@@ -40,20 +71,16 @@ int		ft_ft(int fd, char **line, t_list **lst, char *tmp)
 	{
 		if (str[i] == '\n')
 		{
-			rem = ft_strdup(&str[i + 1]);
-			*lst = ft_new(rem, *lst);
+			ft_free_and_return(&str, lst, 0, &str[i + 1]);
 			*line = ft_strndup(str, i);
 			free(str);
 			return (1);
 		}
 	}
-	rem = ft_strdup(str);
-	free(str);
-	*lst = ft_new(rem, *lst);
-	return (2);
+	return (ft_free_and_return(&str, lst, 1, ""));
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	int				res;
 	static t_list	*lst;

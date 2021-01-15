@@ -4,7 +4,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-//#define BUFFER_SIZE 32
+# ifndef BUFFER_SIZE
+# define BUFFER_SIZE 32
+# endif
 
 typedef struct s_list {
 	char *str;

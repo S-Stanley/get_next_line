@@ -106,14 +106,15 @@ int			get_next_line(int fd, char **line)
 		data = ft_read_file(fd);
 		if (data.count == -1)
 			return (-1);
+		str = ft_join(str, data.render);
 		if (data.count == 0)
 		{
+			printf("**\n%s\n**", str);
 			*line = ft_strndup(str, -1);
 			ft_free_that_list(&lst);
 			free(data.render);
 			return (0);
 		}
-		str = ft_join(str, data.render);
 		free(data.render);
 		res = ft_ft(line, &lst, str);
 	}

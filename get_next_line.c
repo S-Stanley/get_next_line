@@ -102,10 +102,7 @@ int			get_next_line(int fd, char **line)
 	res = 2;
 	while (res == 2)
 	{
-		if (!lst)
-			str = "";
-		else
-			str = lst->str;
+		str = ft_get_last_string(&lst);
 		data = ft_read_file(fd);
 		if (data.count == -1)
 			return (-1);

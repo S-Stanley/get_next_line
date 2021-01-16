@@ -66,3 +66,11 @@ size_t	ft_strlen(char *str)
 		i++;
 	return (i);
 }
+
+char	*ft_get_last_string(t_list **lst)
+{	
+	if (!(*lst))
+		return ("");
+	else
+		return ((*lst)->str);
+}

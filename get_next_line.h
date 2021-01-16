@@ -43,5 +43,6 @@ void			ft_free_that_list(t_list **lst);
 t_render		ft_read_file(int fd);
 size_t			ft_strlen(char *str);
 int				ft_free_and_return(char **str, t_list **lst, int mode, char *s);
+char			*ft_get_last_string(t_list **lst);
 
 #endif

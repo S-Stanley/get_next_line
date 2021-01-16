@@ -9,9 +9,11 @@ char		*ft_join(char *s1, char *s2)
 	i = -1;
 	x = -1;
 	str = malloc(sizeof(char) * ((int)strlen(s1) + (int)strlen(s2) + 1));
-	while(s1[++i])
+	if (!str)
+		return (NULL);
+	while (s1[++i])
 		str[i] = s1[i];
-	while(s2[++x])
+	while (s2[++x])
 		str[i++] = s2[x];
 	str[i] = 0;
 	return (str);
@@ -44,6 +46,8 @@ t_render	ft_read_file(int fd)
 	t_render	tmp;
 
 	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!s)
+		return (tmp);
 	size = read(fd, s, BUFFER_SIZE);
 	s[size] = 0;
 	tmp.count = size;

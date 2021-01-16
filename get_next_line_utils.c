@@ -11,6 +11,8 @@ char	*ft_strndup(char *str, int max)
 	else
 		maxi = max;
 	s = malloc(sizeof(char) * ((int)strlen(str) + 1));
+	if (!s)
+		return (NULL);
 	i = -1;
 	while (str[++i] && i <  maxi)
 		s[i] = str[i];
@@ -24,6 +26,8 @@ t_list	*ft_new(char *s, t_list *lst)
 	t_list	*tmp;
 
 	tmp = malloc(sizeof(t_list));
+	if (!tmp)
+		return (NULL);
 	tmp->str = s;
 	tmp->next = lst;
 	return (tmp);

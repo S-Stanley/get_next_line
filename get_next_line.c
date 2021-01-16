@@ -34,7 +34,7 @@ char		*ft_join(char *s1, char *s2)
 int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 {
 	char	*rem;
-	
+
 	if (mode)
 	{
 		(void)s;
@@ -118,4 +118,3 @@ int			get_next_line(int fd, char **line)
 		ft_free_that_list(&lst);
 	return (res);
 }
-

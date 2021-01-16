@@ -10,25 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 32
+#  define BUFFER_SIZE 32
 # endif
 
-typedef struct	s_list{
+typedef struct	s_list
+{
 	char			*str;
 	struct s_list	*next;
 }				t_list;
 
-typedef struct	s_render{
+typedef struct	s_render
+{
 	char	*render;
 	int		count;
 }				t_render;

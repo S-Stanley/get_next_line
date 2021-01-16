@@ -26,11 +26,10 @@ char	*ft_strndup(char *str, int max)
 	if (!s)
 		return (NULL);
 	i = -1;
-	while (str[++i] && i <  maxi)
+	while (str[++i] && i < maxi)
 		s[i] = str[i];
 	s[i] = 0;
 	return (s);
-
 }
 
 t_list	*ft_new(char *s, t_list *lst)
@@ -43,7 +42,6 @@ t_list	*ft_new(char *s, t_list *lst)
 	tmp->str = s;
 	tmp->next = lst;
 	return (tmp);
-
 }
 
 void	ft_free_that_list(t_list **lst)
@@ -62,7 +60,7 @@ void	ft_free_that_list(t_list **lst)
 size_t	ft_strlen(char *str)
 {
 	int		i;
-	
+
 	i = 0;
 	while (str[i])
 		i++;

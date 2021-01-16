@@ -37,7 +37,7 @@ typedef struct	s_render
 char			*ft_strndup(char *str, int max);
 t_list			*ft_new(char *s, t_list *lst);
 char			*ft_join(char *s1, char *s2);
-int				ft_ft(int fd, char **line, t_list **lst, char *tmp);
+int				ft_ft(char **line, t_list **lst, char *str);
 int				get_next_line(int fd, char **line);
 void			ft_free_that_list(t_list **lst);
 t_render		ft_read_file(int fd);

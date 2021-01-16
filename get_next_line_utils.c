@@ -19,7 +19,7 @@ char	*ft_strndup(char *str, int max)
 	int		maxi;
 
 	if (max == -1)
-		maxi = (int)ft_strlen(str) + 2;
+		maxi = ft_strlen(str) + 2;
 	else
 		maxi = max;
 	s = malloc(sizeof(char) * ((int)ft_strlen(str) + 1));

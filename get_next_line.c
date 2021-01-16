@@ -51,42 +51,10 @@ int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 	return (2);
 }
 
-t_render	ft_read_file(int fd)
-{
-	char		*s;
-	int			size;
-	t_render	tmp;
-
-	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!s)
-	{
-		tmp.count = 0;
-		tmp.render = NULL;
-		return (tmp);
-	}
-	size = read(fd, s, BUFFER_SIZE);
-	s[size] = 0;
-	tmp.count = size;
-	tmp.render = s;
-	return (tmp);
-}
-
-int			ft_ft(int fd, char **line, t_list **lst, char *tmp)
+int			ft_ft(char **line, t_list **lst, char *str)
 {
 	int			i;
-	char		*str;
-	t_render	data;
 
-	data = ft_read_file(fd);
-	str = ft_join(tmp, data.render);
-	// printf("* %d %s %d %d*\n", data.count, data.render, (int)ft_strlen(data.render), (int)ft_strlen(str));
-	free(data.render);
-	if (data.count == 0)
-	{
-		*line = ft_strndup(str, -1);
-		free(str);
-		return (0);
-	}
 	i = -1;
 	while (str[++i])
 	{
@@ -101,13 +69,35 @@ int			ft_ft(int fd, char **line, t_list **lst, char *tmp)
 	return (ft_free_and_return(&str, lst, 1, ""));
 }
 
+t_render	ft_read_file(int fd)
+{
+	char		*s;
+	int			size;
+	t_render	tmp;
+
+	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!s)
+	{
+		tmp.count = -1;
+		tmp.render = NULL;
+		return (tmp);
+	}
+	size = read(fd, s, BUFFER_SIZE);
+	if (size != -1)
+		s[size] = 0;
+	tmp.count = size;
+	tmp.render = s;
+	return (tmp);
+}
+
 int			get_next_line(int fd, char **line)
 {
 	int				res;
 	static t_list	*lst;
 	char			*str;
+	t_render		data;
 
-	if (!fd)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || !fd)
 		return (-1);
 	res = 2;
 	while (res == 2)
@@ -116,7 +106,18 @@ int			get_next_line(int fd, char **line)
 			str = "";
 		else
 			str = lst->str;
-		res = ft_ft(fd, line, &lst, str);
+		data = ft_read_file(fd);
+		if (data.count == -1)
+			return (-1);
+		if (data.count == 0)
+		{
+			*line = ft_strndup(str, -1);
+			free(str);
+			return (0);
+		}
+		str = ft_join(str, data.render);
+		free(data.render);
+		res = ft_ft(line, &lst, str);
 	}
 	if (res == 0)
 		ft_free_that_list(&lst);

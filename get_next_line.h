@@ -46,5 +46,6 @@ size_t			ft_strlen(char *str);
 int				ft_free_and_return(char **str, t_list **lst, int mode, char *s);
 char			*ft_get_last_string(t_list **lst);
 int				ft_strcmp(char *s1, char *s2);
+int				ft_loop(int fd, t_list **lst, char **line);
 
 #endif

@@ -12,7 +12,7 @@ char	*ft_strndup(char *str, int max)
 		maxi = max;
 	s = malloc(sizeof(char) * ((int)strlen(str) + 1));
 	i = -1;
-	while (str[++i] || i <  maxi)
+	while (str[++i] && i <  maxi)
 		s[i] = str[i];
 	s[i] = 0;
 	return (s);

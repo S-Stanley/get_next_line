@@ -12,26 +12,6 @@
 
 #include "get_next_line.h"
 
-char	*ft_strndup(char *str, int max)
-{
-	int		i;
-	char	*s;
-	int		maxi;
-
-	if (max == -1)
-		maxi = ft_strlen(str) + 2;
-	else
-		maxi = max;
-	s = malloc(sizeof(char) * ((int)ft_strlen(str) + 1));
-	if (!s)
-		return (NULL);
-	i = -1;
-	while (str[++i] && i < maxi)
-		s[i] = str[i];
-	s[i] = 0;
-	return (s);
-}
-
 t_list	*ft_new(char *s, t_list *lst)
 {
 	t_list	*tmp;

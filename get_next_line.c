@@ -43,14 +43,14 @@ int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 	if (mode)
 	{
 		(void)s;
-		rem = ft_strndup(*str, -1);
+		rem = ft_join("", *str, -1);
 		*lst = ft_new(rem, *lst);
 		free(*str);
 	}
 	else
 	{
 		(void)str;
-		rem = ft_strndup(s, -1);
+		rem = ft_join("", s, -1);
 		*lst = ft_new(rem, *lst);
 	}
 	return (2);
@@ -66,7 +66,7 @@ int			ft_ft(char **line, t_list **lst, char *str)
 		if (str[i] == '\n')
 		{
 			ft_free_and_return(&str, lst, 0, &str[i + 1]);
-			*line = ft_strndup(str, i);
+			*line = ft_join("", str, i);
 			free(str);
 			return (1);
 		}
@@ -115,7 +115,7 @@ int			get_next_line(int fd, char **line)
 		str = ft_join(rem, data.render, -1);
 		if ((int)ft_strlen(str) == 0)
 		{
-			*line = ft_strndup(str, -1);
+			*line = ft_join("", str, -1);
 			ft_free_that_list(&lst);
 			free(data.render);
 			return (0);
@@ -124,7 +124,7 @@ int			get_next_line(int fd, char **line)
 		res = ft_ft(line, &lst, str);
 		if (res == 2 && data.count == 0)
 		{
-			*line = ft_strndup(str, -1);
+			*line = ft_join("", str, -1);
 			ft_free_that_list(&lst);
 			return (0);
 		}

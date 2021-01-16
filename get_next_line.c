@@ -79,9 +79,11 @@ int			ft_ft(int fd, char **line, t_list **lst, char *tmp)
 
 	data = ft_read_file(fd);
 	str = ft_join(tmp, data.render);
+	// printf("* %d %s %d %d*\n", data.count, data.render, (int)ft_strlen(data.render), (int)ft_strlen(str));
 	free(data.render);
-	if (data.count == 0 && (int)ft_strlen(str) == 0)
+	if (data.count == 0)
 	{
+		*line = ft_strndup(str, -1);
 		free(str);
 		return (0);
 	}

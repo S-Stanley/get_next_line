@@ -112,6 +112,7 @@ int			get_next_line(int fd, char **line)
 		if (data.count == 0)
 		{
 			*line = ft_strndup(str, -1);
+			ft_free_that_list(&lst);
 			free(str);
 			return (0);
 		}
@@ -119,7 +120,7 @@ int			get_next_line(int fd, char **line)
 		free(data.render);
 		res = ft_ft(line, &lst, str);
 	}
-	if (res == 0)
-		ft_free_that_list(&lst);
+	//if (res == 0)
+	//	ft_free_that_list(&lst);
 	return (res);
 }

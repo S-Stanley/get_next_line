@@ -12,20 +12,25 @@
 
 #include "get_next_line.h"
 
-char		*ft_join(char *s1, char *s2)
+char		*ft_join(char *s1, char *s2, int max)
 {
 	int		i;
 	int		x;
 	char	*str;
+	int		maxi;
 
 	i = -1;
 	x = -1;
+	if (max == -1)
+		maxi = ft_strlen(s1) + ft_strlen(s2) + 2;
+	else
+		maxi = max;
 	str = malloc(sizeof(char) * ((int)ft_strlen(s1) + (int)ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	while (s1[++i])
 		str[i] = s1[i];
-	while (s2[++x])
+	while (s2[++x] && i < maxi)
 		str[i++] = s2[x];
 	str[i] = 0;
 	return (str);
@@ -107,7 +112,7 @@ int			get_next_line(int fd, char **line)
 		data = ft_read_file(fd);
 		if (data.count == -1)
 			return (-1);
-		str = ft_join(rem, data.render);
+		str = ft_join(rem, data.render, -1);
 		if ((int)ft_strlen(str) == 0)
 		{
 			*line = ft_strndup(str, -1);

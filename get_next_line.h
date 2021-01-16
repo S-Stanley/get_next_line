@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
@@ -44,5 +45,6 @@ t_render		ft_read_file(int fd);
 size_t			ft_strlen(char *str);
 int				ft_free_and_return(char **str, t_list **lst, int mode, char *s);
 char			*ft_get_last_string(t_list **lst);
+int				ft_strcmp(char *s1, char *s2);
 
 #endif

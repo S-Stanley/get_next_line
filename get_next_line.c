@@ -96,20 +96,20 @@ int			get_next_line(int fd, char **line)
 	static t_list	*lst;
 	char			*str;
 	t_render		data;
+	char			*rem;
 
 	if (fd < 0 || !line || BUFFER_SIZE <= 0 || !fd)
 		return (-1);
 	res = 2;
 	while (res == 2)
 	{
-		str = ft_get_last_string(&lst);
+		rem = ft_get_last_string(&lst);
 		data = ft_read_file(fd);
 		if (data.count == -1)
 			return (-1);
-		str = ft_join(str, data.render);
-		if (data.count == 0)
+		str = ft_join(rem, data.render);
+		if ((int)ft_strlen(str) == 0)
 		{
-			printf("**\n%s\n**", str);
 			*line = ft_strndup(str, -1);
 			ft_free_that_list(&lst);
 			free(data.render);
@@ -117,6 +117,12 @@ int			get_next_line(int fd, char **line)
 		}
 		free(data.render);
 		res = ft_ft(line, &lst, str);
+		if (res == 2 && data.count == 0)
+		{
+			*line = ft_strndup(str, -1);
+			ft_free_that_list(&lst);
+			return (0);
+		}
 	}
 	return (res);
 }

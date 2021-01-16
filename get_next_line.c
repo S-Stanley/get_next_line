@@ -20,7 +20,7 @@ char		*ft_join(char *s1, char *s2)
 
 	i = -1;
 	x = -1;
-	str = malloc(sizeof(char) * ((int)strlen(s1) + (int)strlen(s2) + 1));
+	str = malloc(sizeof(char) * ((int)ft_strlen(s1) + (int)ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	while (s1[++i])
@@ -59,7 +59,11 @@ t_render	ft_read_file(int fd)
 
 	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!s)
+	{
+		tmp.count = 0;
+		tmp.render = NULL;
 		return (tmp);
+	}
 	size = read(fd, s, BUFFER_SIZE);
 	s[size] = 0;
 	tmp.count = size;
@@ -71,13 +75,12 @@ int			ft_ft(int fd, char **line, t_list **lst, char *tmp)
 {
 	int			i;
 	char		*str;
-	char		*rem;
 	t_render	data;
 
 	data = ft_read_file(fd);
 	str = ft_join(tmp, data.render);
 	free(data.render);
-	if (data.count == 0 && (int)strlen(str) == 0)
+	if (data.count == 0 && (int)ft_strlen(str) == 0)
 	{
 		free(str);
 		return (0);
@@ -100,7 +103,6 @@ int			get_next_line(int fd, char **line)
 {
 	int				res;
 	static t_list	*lst;
-	t_list			*tmp;
 	char			*str;
 
 	if (!fd)

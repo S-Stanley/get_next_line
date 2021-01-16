@@ -19,10 +19,10 @@ char	*ft_strndup(char *str, int max)
 	int		maxi;
 
 	if (max == -1)
-		maxi = ft_strlen(str) + 2;
+		maxi = (int)ft_strlen(str) + 2;
 	else
 		maxi = max;
-	s = malloc(sizeof(char) * ((int)strlen(str) + 1));
+	s = malloc(sizeof(char) * ((int)ft_strlen(str) + 1));
 	if (!s)
 		return (NULL);
 	i = -1;

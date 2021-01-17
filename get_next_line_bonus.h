@@ -36,7 +36,6 @@ typedef struct	s_render
 	int				count;
 }				t_render;
 
-char			*ft_strndup(char *str, int max);
 t_list			*ft_new(char *s, t_list *lst, int fd);
 char			*ft_join(char *s1, char *s2, int max);
 int				ft_ft(char **line, t_list **lst, char *str, int fd);
@@ -44,7 +43,8 @@ int				get_next_line(int fd, char **line);
 t_render		ft_read_file(int fd);
 size_t			ft_strlen(char *str);
 char			*ft_get_last_string(t_list **lst, int fd);
-int				ft_strcmp(char *s1, char *s2);
 int				ft_loop(int fd, t_list **lst, char **line);
+int				ft_clean(char **line, t_list **lst, char **str);
+void			ft_free_that_list(t_list **lst);
 
 #endif

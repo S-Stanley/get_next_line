@@ -35,7 +35,6 @@ typedef struct	s_render
 	int				count;
 }				t_render;
 
-char			*ft_strndup(char *str, int max);
 t_list			*ft_new(char *s, t_list *lst);
 char			*ft_join(char *s1, char *s2, int max);
 int				ft_ft(char **line, t_list **lst, char *str);

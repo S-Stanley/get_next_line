@@ -54,6 +54,14 @@ t_render	ft_read_file(int fd)
 	return (tmp);
 }
 
+int			ft_clean(char **line, t_list **lst, char **str)
+{
+	*line = ft_join("", *str, -1);
+	ft_free_that_list(lst);
+	free(*str);
+	return (0);
+}
+
 int			ft_loop(int fd, t_list **lst, char **line)
 {
 	char		*rem;
@@ -68,21 +76,13 @@ int			ft_loop(int fd, t_list **lst, char **line)
 	str = ft_join(rem, data.render, -1);
 	if ((int)ft_strlen(str) == 0)
 	{
-		*line = ft_join("", str, -1);
-		ft_free_that_list(lst);
 		free(data.render);
-		free(str);
-		return (0);
+		return (ft_clean(line, lst, &str));
 	}
 	free(data.render);
 	res = ft_ft(line, lst, str, fd);
 	if (res == 2 && data.count == 0)
-	{
-		*line = ft_join("", str, -1);
-		ft_free_that_list(lst);
-		free(str);
-		return (0);
-	}
+		return (ft_clean(line, lst, &str));
 	free(str);
 	return (res);
 }

@@ -87,6 +87,7 @@ int			ft_loop(int fd, t_list **lst, char **line)
 	{
 		*line = ft_join("", str, -1);
 		ft_free_that_list(lst);
+		free(str);
 		free(data.render);
 		return (0);
 	}
@@ -96,6 +97,7 @@ int			ft_loop(int fd, t_list **lst, char **line)
 	{
 		*line = ft_join("", str, -1);
 		ft_free_that_list(lst);
+		free(str);
 		return (0);
 	}
 	return (res);

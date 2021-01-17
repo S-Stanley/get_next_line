@@ -21,7 +21,7 @@ int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 		(void)s;
 		rem = ft_join("", *str, -1);
 		*lst = ft_new(rem, *lst);
-		free(*str);
+		// free(*str);
 	}
 	else
 	{
@@ -43,7 +43,7 @@ int			ft_ft(char **line, t_list **lst, char *str)
 		{
 			ft_free_and_return(&str, lst, 0, &str[i + 1]);
 			*line = ft_join("", str, i);
-			free(str);
+			// free(str);
 			return (1);
 		}
 	}
@@ -100,6 +100,7 @@ int			ft_loop(int fd, t_list **lst, char **line)
 		free(str);
 		return (0);
 	}
+	free(str);
 	return (res);
 }
 

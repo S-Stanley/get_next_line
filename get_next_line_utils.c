@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-t_list	*ft_new(char *s, t_list *lst)
+t_list	*ft_new(char *s, t_list *lst, int fd)
 {
 	t_list	*tmp;
 
@@ -20,6 +20,7 @@ t_list	*ft_new(char *s, t_list *lst)
 	if (!tmp)
 		return (NULL);
 	tmp->str = s;
+	tmp->fd = fd;
 	tmp->next = lst;
 	return (tmp);
 }
@@ -47,12 +48,20 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_get_last_string(t_list **lst)
+char	*ft_get_last_string(t_list **lst, int fd)
 {
-	if (!(*lst))
+	t_list	*tmp;
+
+	tmp = *lst;
+	if (!tmp)
 		return ("");
-	else
-		return ((*lst)->str);
+	while (tmp)
+	{
+		if (tmp->fd == fd)
+			return (tmp->str);
+		tmp = tmp->next;
+	}
+	return ("");
 }
 
 char	*ft_join(char *s1, char *s2, int max)

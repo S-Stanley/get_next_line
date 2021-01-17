@@ -12,40 +12,25 @@
 
 #include "get_next_line.h"
 
-int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
-{
-	char	*rem;
-
-	if (mode)
-	{
-		(void)s;
-		rem = ft_join("", *str, -1);
-		*lst = ft_new(rem, *lst);
-	}
-	else
-	{
-		(void)str;
-		rem = ft_join("", s, -1);
-		*lst = ft_new(rem, *lst);
-	}
-	return (2);
-}
-
-int			ft_ft(char **line, t_list **lst, char *str)
+int			ft_ft(char **line, t_list **lst, char *str, int fd)
 {
 	int			i;
+	char		*rem;
 
 	i = -1;
 	while (str[++i])
 	{
 		if (str[i] == '\n')
 		{
-			ft_free_and_return(&str, lst, 0, &str[i + 1]);
+			rem = ft_join("", &str[i + 1], -1);
+			*lst = ft_new(rem, *lst, fd);
 			*line = ft_join("", str, i);
 			return (1);
 		}
 	}
-	return (ft_free_and_return(&str, lst, 1, ""));
+	rem = ft_join("", str, -1);
+	*lst = ft_new(rem, *lst, fd);
+	return (2);
 }
 
 t_render	ft_read_file(int fd)
@@ -69,6 +54,14 @@ t_render	ft_read_file(int fd)
 	return (tmp);
 }
 
+int			ft_clean(char **line, t_list **lst, char **str)
+{
+	*line = ft_join("", *str, -1);
+	ft_free_that_list(lst);
+	free(*str);
+	return (0);
+}
+
 int			ft_loop(int fd, t_list **lst, char **line)
 {
 	char		*rem;
@@ -76,28 +69,20 @@ int			ft_loop(int fd, t_list **lst, char **line)
 	t_render	data;
 	int			res;
 
-	rem = ft_get_last_string(lst);
+	rem = ft_get_last_string(lst, fd);
 	data = ft_read_file(fd);
 	if (data.count == -1)
 		return (-1);
 	str = ft_join(rem, data.render, -1);
 	if ((int)ft_strlen(str) == 0)
 	{
-		*line = ft_join("", str, -1);
-		ft_free_that_list(lst);
 		free(data.render);
-		free(str);
-		return (0);
+		return (ft_clean(line, lst, &str));
 	}
 	free(data.render);
-	res = ft_ft(line, lst, str);
+	res = ft_ft(line, lst, str, fd);
 	if (res == 2 && data.count == 0)
-	{
-		*line = ft_join("", str, -1);
-		ft_free_that_list(lst);
-		free(str);
-		return (0);
-	}
+		return (ft_clean(line, lst, &str));
 	free(str);
 	return (res);
 }

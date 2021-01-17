@@ -26,6 +26,7 @@
 typedef struct	s_list
 {
 	char			*str;
+	int				fd;
 	struct s_list	*next;
 }				t_list;
 
@@ -35,16 +36,15 @@ typedef struct	s_render
 	int				count;
 }				t_render;
 
-t_list			*ft_new(char *s, t_list *lst);
+t_list			*ft_new(char *s, t_list *lst, int fd);
 char			*ft_join(char *s1, char *s2, int max);
-int				ft_ft(char **line, t_list **lst, char *str);
+int				ft_ft(char **line, t_list **lst, char *str, int fd);
 int				get_next_line(int fd, char **line);
-void			ft_free_that_list(t_list **lst);
 t_render		ft_read_file(int fd);
 size_t			ft_strlen(char *str);
-int				ft_free_and_return(char **str, t_list **lst, int mode, char *s);
-char			*ft_get_last_string(t_list **lst);
-int				ft_strcmp(char *s1, char *s2);
+char			*ft_get_last_string(t_list **lst, int fd);
 int				ft_loop(int fd, t_list **lst, char **line);
+int				ft_clean(char **line, t_list **lst, char **str);
+void			ft_free_that_list(t_list **lst);
 
 #endif

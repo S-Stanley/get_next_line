@@ -6,7 +6,7 @@
 /*   By: sserbin <stanleyserbin@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 12:34:44 by sserbin           #+#    #+#             */
-/*   Updated: 2021/01/16 12:34:46 by sserbin          ###   ########.fr       */
+/*   Updated: 2021/01/17 13:45:11 by sserbin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 		(void)s;
 		rem = ft_join("", *str, -1);
 		*lst = ft_new(rem, *lst);
-		free(*str);
+		// free(*str);
 	}
 	else
 	{
@@ -87,8 +87,8 @@ int			ft_loop(int fd, t_list **lst, char **line)
 	{
 		*line = ft_join("", str, -1);
 		ft_free_that_list(lst);
-		free(str);
 		free(data.render);
+		free(str);
 		return (0);
 	}
 	free(data.render);

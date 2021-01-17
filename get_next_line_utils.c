@@ -48,14 +48,14 @@ size_t	ft_strlen(char *str)
 }
 
 char	*ft_get_last_string(t_list **lst)
-{	
+{
 	if (!(*lst))
 		return ("");
 	else
 		return ((*lst)->str);
 }
 
-char		*ft_join(char *s1, char *s2, int max)
+char	*ft_join(char *s1, char *s2, int max)
 {
 	int		i;
 	int		x;

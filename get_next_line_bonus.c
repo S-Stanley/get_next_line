@@ -12,25 +12,6 @@
 
 #include "get_next_line_bonus.h"
 
-int			ft_free_and_return(char **str, t_list **lst, int mode, char *s, int fd)
-{
-	char	*rem;
-
-	if (mode)
-	{
-		(void)s;
-		rem = ft_join("", *str, -1);
-		*lst = ft_new(rem, *lst, fd);
-	}
-	else
-	{
-		(void)str;
-		rem = ft_join("", s, -1);
-		*lst = ft_new(rem, *lst, fd);
-	}
-	return (2);
-}
-
 int			ft_ft(char **line, t_list **lst, char *str, int fd)
 {
 	int			i;

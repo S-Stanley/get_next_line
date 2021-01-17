@@ -21,7 +21,7 @@ int			ft_free_and_return(char **str, t_list **lst, int mode, char *s)
 		(void)s;
 		rem = ft_join("", *str, -1);
 		*lst = ft_new(rem, *lst);
-		// free(*str);
+		free(*str);
 	}
 	else
 	{

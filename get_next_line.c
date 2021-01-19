@@ -72,7 +72,10 @@ int			ft_loop(int fd, t_list **lst, char **line)
 	rem = ft_get_last_string(lst, fd);
 	data = ft_read_file(fd);
 	if (data.count == -1)
+	{
+		free(data.render);
 		return (-1);
+	}
 	str = ft_join(rem, data.render, -1);
 	if ((int)ft_strlen(str) == 0)
 	{
@@ -92,7 +95,7 @@ int			get_next_line(int fd, char **line)
 	int				res;
 	static t_list	*lst;
 
-	if (fd < 0 || !line || BUFFER_SIZE <= 0 || !fd)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	res = 2;
 	while (res == 2)
